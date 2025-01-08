@@ -20,7 +20,7 @@ if __name__ == "__main__":
 
     # Set-up command-line arguments for running behave tests with specific tags
     parser = argparse.ArgumentParser(description="Run behave tests with specific tags.")
-    parser.add_subparsers("--tags",help="Behave tags to filter scenario",default="")
+    parser.add_argument("--tags",help="Behave tags to filter scenario",default="")
     args = parser.parse_args()
 
     #check if behave_tag is set by jenkins
