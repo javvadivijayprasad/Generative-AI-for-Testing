@@ -1,3 +1,4 @@
+@smoke
 Feature: Contact Us form functionality
 
     Background: Pre-condition
