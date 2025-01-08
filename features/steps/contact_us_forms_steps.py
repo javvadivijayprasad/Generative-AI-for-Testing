@@ -9,10 +9,12 @@ logger = logging.getLogger('verify_logger')
 
 @given("I am on the Contact Us form")
 def navigate_to_contact_us_form(context:CustomContext):
-    context.page.goto("https://webdriveruniversity.com/Contact-Us/contactus.html")
+    context.page.goto("")
 
 
+@given('I fill in the "{field}" field with "{value}"')
 @when('I fill in the "{field}" field with "{value}"')
+@then('I fill in the "{field}" field with "{value}"')
 def fill_in_field(context:CustomContext, field, value):
     field_selector = f'[name="{field}"]'
     if value=="\\n":
@@ -32,15 +34,17 @@ def fill_in_field(context:CustomContext, field, value):
 @then('I click on the "{button}" button')
 def click_button(context:CustomContext, button):
     context.page.wait_for_timeout(2000)
-    button_selector = f'[value="{button}"]'
+    button_selector = f'[value="{button}"] | [type="{button}"] '
     context.page.wait_for_selector(button_selector)
     context.page.click(button_selector)
    
 
 
 @then(' should see the success message "{message}"')
+@given(' should see the success message "{message}"')
+@when(' should see the success message "{message}"')
 def verify_success_message(context:CustomContext, message):
-    success_message = f'//*[contains(text(),"{message}")]'
+    success_message = f'//*[contains(text(),"{message}")] | //title[contains(text(),"{message}")]'
     try:
         logger.info(f"Waiting for success message:{message}")
         context.page.wait_for_selector(success_message,timeout=2000)
